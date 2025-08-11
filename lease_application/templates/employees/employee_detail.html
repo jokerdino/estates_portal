@@ -1,0 +1,77 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Employee Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ employee.employee_name }}</dd>
+
+            <dt class="col-sm-3">Employee Number</dt>
+            <dd class="col-sm-9">{{ employee.employee_number }}</dd>
+
+            <dt class="col-sm-3">Designation</dt>
+            <dd class="col-sm-9">{{ employee.get_employee_designation_display }}</dd>
+
+            <dt class="col-sm-3">Department</dt>
+            <dd class="col-sm-9">{{ employee.department }}</dd>
+
+            <dt class="col-sm-3">Office Name</dt>
+            <dd class="col-sm-9">{{ employee.office_name }}</dd>
+
+            <dt class="col-sm-3">Office Code</dt>
+            <dd class="col-sm-9">{{ employee.office_code }}</dd>
+            <dt class="col-sm-3">Housing Loan Availed?</dt>
+            <dd class="col-sm-9">{{ employee.housing_loan|yesno:"Yes,No" }}</dd>
+        </dl>
+    </fieldset>
+
+    <h4 class="mt-5">Lease Applications</h4>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Type of Lease</th>
+                <th>Primary Employee</th>
+                <th>Joint Employee</th>
+                <th>Landlord</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Deposit</th>
+                <th>Rent</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lease in leases %}
+            <tr>
+                <td>{{ lease.get_type_of_lease_display }}</td>
+                <td>{{ lease.primary_employee }}</td>
+                <td>{{ lease.joint_employee }}</td>
+                <td>{{ lease.landlord }}</td>
+                <td>{{ lease.lease_start_date }}</td>
+                <td>{{ lease.lease_end_date }}</td>
+                <td>{{ lease.lease_deposit }}</td>
+                <td>{{ lease.rent }}</td>
+                <td>{{ lease.status }}</td>
+                <td>
+                    <a href="{{ lease.get_absolute_url }}">View</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10" class="text-center">No lease applications found for this employee.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-end">
+        <a href="{% url 'employee_update' employee.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'employee_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+
+</div>
+{% endblock content %}

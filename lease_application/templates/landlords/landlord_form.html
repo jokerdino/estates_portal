@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="title">
+        {% if object %}
+        Edit landlord - {{ object.landlord_name }}
+        {% else %}
+        Add new landlord
+        {% endif %}
+    </h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% bootstrap_form form layout="horizontal" %}
+
+        <div class="text-center">
+            {% bootstrap_button button_type="submit" content="Submit" %}
+            {% bootstrap_button button_type="reset" content="Cancel" %}
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

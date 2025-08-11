@@ -1,0 +1,78 @@
+{% extends "base_generic.html" %}
+
+{% load django_tables2 %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container-fluid">
+    <div class="container mt-4">
+        <h2>
+            {% if lease_type %}
+            {{ lease_type|capfirst }}
+            {% else %}
+            All
+            {% endif %}
+            {% if status %}
+            - {{ status|capfirst }}
+            {% endif %}
+        </h2>
+        {% if status == "pending" %}
+        <button type="button" class="btn btn-success mt-2 mb-4" data-bs-toggle="modal"
+            data-bs-target="#bulkMarkPaidModal">
+            Mark Selected as Paid
+        </button>
+        {% endif %}
+        {% render_table table %}
+    </div>
+    <div class="modal fade" id="bulkMarkPaidModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="post" action="{% url 'rent_payment_bulk_mark_paid' %}">
+                {% csrf_token %}
+                <input type="hidden" name="payment_ids" id="selectedPaymentIds">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mark Selected Payments as Paid</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        {% bootstrap_form form layout='vertical' %}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block scripts %}
+{{ block.super }}
+<script>new DataTable('#leaseApplicationTable', {
+        order: [[3, 'desc']]
+    });</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("bulkMarkPaidModal");
+        modal.addEventListener("show.bs.modal", function () {
+            const checkedBoxes = document.querySelectorAll('input[name="select"]:checked');
+            const ids = Array.from(checkedBoxes).map(cb => cb.value);
+            document.getElementById("selectedPaymentIds").value = ids.join(",");
+        });
+
+        // Optional: Implement "select all"
+        const selectAll = document.getElementById("select-all");
+        if (selectAll) {
+            selectAll.addEventListener("change", function () {
+                const checkboxes = document.querySelectorAll('input[name="select"]');
+                checkboxes.forEach(cb => cb.checked = selectAll.checked);
+            });
+        }
+    });
+</script>
+
+
+{% endblock scripts %}

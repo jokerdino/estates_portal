@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="title">Add new lease application</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="border p-3 mb-4">
+            <legend class="float-none w-auto">Lease details</legend>
+            {% bootstrap_form lease_form layout="horizontal" %}
+        </fieldset>
+
+        <div class="text-center">
+            {% bootstrap_button button_type="submit" content="Submit" %}
+            {% bootstrap_button button_type="reset" content="Cancel" %}
+        </div>
+    </form>
+</div>
+
+<script>
+    // const leaseTypeSelect = document.getElementById("id_type_of_lease");
+    // const jointSection = document.getElementById("joint-employee-section");
+
+    // // function toggleJoint() {
+    // //     if (leaseTypeSelect.value === "joint") {
+    // //         jointSection.style.display = "block";
+    // //     } else {
+    // //         jointSection.style.display = "none";
+    // //     }
+    // // }
+    // function toggleJoint() {
+    //     if (leaseTypeSelect.value === "joint") {
+    //         jointSection.style.display = "block";
+    //         jointSection.querySelectorAll("input, select").forEach(el => el.disabled = false);
+    //     } else {
+    //         jointSection.style.display = "none";
+    //         jointSection.querySelectorAll("input, select").forEach(el => el.disabled = true);
+    //     }
+    // }
+
+
+    // toggleJoint();
+    // leaseTypeSelect.addEventListener("change", toggleJoint);
+</script>
+{% endblock content %}

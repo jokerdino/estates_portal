@@ -1,0 +1,67 @@
+{% extends "base_generic.html" %}
+
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container py-5">
+    <h2>Rent Payment Details</h2>
+
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Payment Information</legend>
+        <dl class="row">
+            <dt class="col-sm-4">Lease</dt>
+            <dd class="col-sm-8">{{ object.lease }}</dd>
+
+            <dt class="col-sm-4">Amount</dt>
+            <dd class="col-sm-8">{{ object.amount }}</dd>
+
+            <dt class="col-sm-4">Rent Start Date</dt>
+            <dd class="col-sm-8">{{ object.rent_start_date }}</dd>
+
+            <dt class="col-sm-4">Rent End Date</dt>
+            <dd class="col-sm-8">{{ object.rent_end_date }}</dd>
+
+            <dt class="col-sm-4">Payee Name</dt>
+            <dd class="col-sm-8">{{ object.payee_name }}</dd>
+
+            <dt class="col-sm-4">Payee Account Number</dt>
+            <dd class="col-sm-8">{{ object.payee_account_number }}</dd>
+
+            <dt class="col-sm-4">Payee IFSC</dt>
+            <dd class="col-sm-8">{{ object.payee_ifsc }}</dd>
+
+            <dt class="col-sm-4">Payee Type</dt>
+            <dd class="col-sm-8">{{ object.get_payee_type_display }}</dd>
+
+            <dt class="col-sm-4">Date of Payment</dt>
+            <dd class="col-sm-8">{{ object.date_of_payment }}</dd>
+
+            <dt class="col-sm-4">UTR Number</dt>
+            <dd class="col-sm-8">{{ object.utr_number }}</dd>
+
+            <dt class="col-sm-4">Remarks</dt>
+            <dd class="col-sm-8">{{ object.remarks }}</dd>
+
+            <dt class="col-sm-4">Status</dt>
+            <dd class="col-sm-8">{{ object.get_status_display }}</dd>
+
+            <dt class="col-sm-4">Created At</dt>
+            <dd class="col-sm-8">{{ object.created_at }}</dd>
+
+            <dt class="col-sm-4">Created By</dt>
+            <dd class="col-sm-8">{{ object.created_by }}</dd>
+
+            <dt class="col-sm-4">Updated At</dt>
+            <dd class="col-sm-8">{{ object.updated_at }}</dd>
+
+            <dt class="col-sm-4">Updated By</dt>
+            <dd class="col-sm-8">{{ object.updated_by }}</dd>
+        </dl>
+    </fieldset>
+
+    <div class="text-end">
+
+        <a href="{% url 'rent_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+{% endblock %}

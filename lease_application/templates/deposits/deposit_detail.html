@@ -1,0 +1,63 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Deposit Details</h1>
+
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Payment Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Lease</dt>
+            <dd class="col-sm-9">{{ deposit.lease }}</dd>
+
+            <dt class="col-sm-3">Amount</dt>
+            <dd class="col-sm-9">₹{{ deposit.amount }}</dd>
+
+            <dt class="col-sm-3">UTR Number</dt>
+            <dd class="col-sm-9">{{ deposit.utr_number }}</dd>
+
+            <dt class="col-sm-3">Date of Payment</dt>
+            <dd class="col-sm-9">{{ deposit.date_of_payment }}</dd>
+            {% if deposit.remarks %}
+            <dt class="col-sm-3">Remarks</dt>
+            <dd class="col-sm-9">{{ deposit.remarks }}</dd>
+            {% endif %}
+
+        </dl>
+    </fieldset>
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Deposit refund details</legend>
+        <dl class="row">
+            {% if deposit.mode_of_refund %}
+            <dt class="col-sm-3">Mode of Refund</dt>
+            <dd class="col-sm-9">{{ deposit.mode_of_refund }}</dd>
+            {% endif %}
+
+            {% if deposit.refund_instrument_number %}
+            <dt class="col-sm-3">Refund Instrument Number</dt>
+            <dd class="col-sm-9">{{ deposit.refund_instrument_number }}</dd>
+            {% endif %}
+
+            {% if deposit.date_of_refund %}
+            <dt class="col-sm-3">Date of Refund</dt>
+            <dd class="col-sm-9">{{ deposit.date_of_refund }}</dd>
+            {% endif %}
+
+            {% if deposit.refund_payment_document %}
+            <dt class="col-sm-3">Refund Payment Document</dt>
+            <dd class="col-sm-9">
+                <a href="{{ deposit.refund_payment_document.url }}" class="btn btn-sm btn-primary">
+                    Download Document
+                </a>
+            </dd>
+            {% endif %}
+        </dl>
+    </fieldset>
+
+    <div class="text-end">
+        <a href="{% url 'deposit_update' deposit.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'deposit_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+
+</div>
+{% endblock content %}

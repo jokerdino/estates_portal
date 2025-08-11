@@ -1,0 +1,260 @@
+{% extends "base_generic.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">Lease Application Details</h1>
+
+    <!-- Lease Details -->
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Lease Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Lease Type</dt>
+            <dd class="col-sm-9">{{ lease.type_of_lease|capfirst }}</dd>
+
+            <dt class="col-sm-3">Lease Start Date</dt>
+            <dd class="col-sm-9">{{ lease.lease_start_date|date:"d/m/Y" }}</dd>
+
+            <dt class="col-sm-3">Lease End Date</dt>
+            <dd class="col-sm-9">{{ lease.lease_end_date|date:"d/m/Y" }}</dd>
+
+            <dt class="col-sm-3">Lease Deposit</dt>
+            <dd class="col-sm-9">{{ lease.lease_deposit }}</dd>
+
+            <dt class="col-sm-3">Rent</dt>
+            <dd class="col-sm-9">{{ lease.rent }}</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">{{ lease.status }}</dd>
+
+            {% if lease.remarks %}
+            <dt class="col-sm-3">Remarks</dt>
+            <dd class="col-sm-9">{{ lease.remarks }}</dd>
+            {% endif %}
+        </dl>
+    </fieldset>
+
+    <!-- Primary Employee -->
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Employee Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.employee_name }}</dd>
+
+            <dt class="col-sm-3">Employee Number</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.employee_number }}</dd>
+
+            <dt class="col-sm-3">Designation</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.get_employee_designation_display }}</dd>
+
+            <dt class="col-sm-3">Department</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.department }}</dd>
+
+            <dt class="col-sm-3">Office Name</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.office_name }}</dd>
+
+            <dt class="col-sm-3">Office Code</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.office_code }}</dd>
+            <dt class="col-sm-3">Housing Loan Availed?</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.housing_loan|yesno:"Yes,No" }}</dd>
+        </dl>
+    </fieldset>
+
+    <!-- Joint Employee -->
+    {% if lease.type_of_lease == "joint" and lease.joint_employee %}
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Joint Employee Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.employee_name }}</dd>
+
+            <dt class="col-sm-3">Employee Number</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.employee_number }}</dd>
+
+            <dt class="col-sm-3">Designation</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.get_employee_designation_display }}</dd>
+
+            <dt class="col-sm-3">Department</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.department }}</dd>
+
+            <dt class="col-sm-3">Office Name</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.office_name }}</dd>
+
+            <dt class="col-sm-3">Office Code</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.office_code }}</dd>
+            <dt class="col-sm-3">Housing Loan Availed?</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.housing_loan|yesno:"Yes,No" }}</dd>
+        </dl>
+    </fieldset>
+    {% endif %}
+
+    <!-- Landlord Details -->
+    {% if lease.landlord %}
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Landlord Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">{{ lease.landlord.landlord_name }}</dd>
+
+            <dt class="col-sm-3">Code</dt>
+            <dd class="col-sm-9">{{ lease.landlord.landlord_code }}</dd>
+
+            <dt class="col-sm-3">PAN Number</dt>
+            <dd class="col-sm-9">{{ lease.landlord.pan_number }}</dd>
+
+            <dt class="col-sm-3">Bank Account Number</dt>
+            <dd class="col-sm-9">{{ lease.landlord.bank_account_number }}</dd>
+
+            <dt class="col-sm-3">Bank IFSC Code</dt>
+            <dd class="col-sm-9">{{ lease.landlord.bank_ifsc_code }}</dd>
+
+            <dt class="col-sm-3">Bank Name</dt>
+            <dd class="col-sm-9">{{ lease.landlord.bank_name }}</dd>
+
+            <dt class="col-sm-3">Bank Account Details</dt>
+            <dd class="col-sm-9">
+                {% if lease.landlord.bank_account_details %}
+                <a href="{{ lease.landlord.bank_account_details.url }}">Download</a>
+                {% else %}
+                Not uploaded
+                {% endif %}
+            </dd>
+
+            {% if lease.landlord.remarks %}
+            <dt class="col-sm-3">Remarks</dt>
+            <dd class="col-sm-9">{{ lease.landlord.remarks }}</dd>
+            {% endif %}
+        </dl>
+    </fieldset>
+    {% endif %}
+
+    {% if lease.type_of_lease == "company" or lease.type_of_lease == "joint" %}
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Deposit Details</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Lease</dt>
+            <dd class="col-sm-9">{{ deposit.lease }}</dd>
+
+            <dt class="col-sm-3">Amount</dt>
+            <dd class="col-sm-9">₹{{ deposit.amount }}</dd>
+
+            <dt class="col-sm-3">UTR Number</dt>
+            <dd class="col-sm-9">{{ deposit.utr_number }}</dd>
+
+            <dt class="col-sm-3">Date of Payment</dt>
+            <dd class="col-sm-9">{{ deposit.date_of_payment }}</dd>
+            {% if deposit.remarks %}
+            <dt class="col-sm-3">Remarks</dt>
+            <dd class="col-sm-9">{{ deposit.remarks }}</dd>
+            {% endif %}
+
+        </dl>
+    </fieldset>
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Deposit refund details</legend>
+        <dl class="row">
+            {% if deposit.mode_of_refund %}
+            <dt class="col-sm-3">Mode of Refund</dt>
+            <dd class="col-sm-9">{{ deposit.mode_of_refund }}</dd>
+            {% endif %}
+
+            {% if deposit.refund_instrument_number %}
+            <dt class="col-sm-3">Refund Instrument Number</dt>
+            <dd class="col-sm-9">{{ deposit.refund_instrument_number }}</dd>
+            {% endif %}
+
+            {% if deposit.date_of_refund %}
+            <dt class="col-sm-3">Date of Refund</dt>
+            <dd class="col-sm-9">{{ deposit.date_of_refund }}</dd>
+            {% endif %}
+
+            {% if deposit.refund_payment_document %}
+            <dt class="col-sm-3">Refund Payment Document</dt>
+            <dd class="col-sm-9">
+                <a href="{{ deposit.refund_payment_document.url }}" class="btn btn-sm btn-primary">
+                    Download Document
+                </a>
+            </dd>
+            {% endif %}
+        </dl>
+    </fieldset>
+
+    {% endif %}
+    <h2>Rent Payments</h2>
+    {% if rent_payments %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Period</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date of Payment</th>
+                <th>UTR Number</th>
+                <th>Payee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in rent_payments %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ payment.rent_start_date }} to {{ payment.rent_end_date }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.status|capfirst }}</td>
+                <td>{% if payment.date_of_payment %}{{ payment.date_of_payment }}{% else %}--{% endif %}</td>
+                <td>{{ payment.utr_number|default:"--" }}</td>
+                <td>{{ payment.payee_name }}</td>
+                <td>
+                    <a href="{% url 'rent_payment_detail' payment.pk %}" class="btn btn-sm btn-primary">View</a>
+                    {% if payment.status == "pending" %}
+                    <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#markPaidModal"
+                        onclick="setMarkPaidAction({{ payment.pk }})">
+                        Mark Paid
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No rent payments generated yet.</p>
+    {% endif %}
+    <div class="text-end">
+        <a href="{% url 'generate_rent_payments_for_lease' lease.pk %}" class="btn btn-primary"
+            onclick="return confirm('Generate all missing rent payments from start of lease to last month?');">
+            Generate Rent Payments
+        </a>
+
+        <a href="{% url 'lease_edit' lease.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'lease_renew' lease.pk %}" class="btn btn-success">Renew lease</a>
+        <a href="{% url 'lease_list' %}" class="btn btn-secondary">Back to list</a>
+    </div>
+</div>
+<div class="modal fade" id="markPaidModal" tabindex="-1" aria-labelledby="markPaidModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" id="markPaidForm">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="markPaidModalLabel">Mark Payment as Paid</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% bootstrap_form form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Mark Paid</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function setMarkPaidAction(paymentId) {
+        const form = document.getElementById("markPaidForm");
+        form.action = "{% url 'rent_payment_mark_paid' 0 %}".replace("0", paymentId);
+    }
+</script>
+{% endblock content %}

@@ -156,7 +156,7 @@ def create_lease_and_landlord(request):
         joint_employee_form = EmployeeForm(
             request.POST, prefix="joint", instance=joint_employee_instance
         )
-        landlord_form = LandLordForm(request.POST, instance=landlord_instance)
+        landlord_form = LandLordForm(request.POST, request.FILES, instance=landlord_instance)
         if (
             lease_form.is_valid()
             and landlord_form.is_valid()

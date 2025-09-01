@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_e0u%hg83+f4y#t!!9+j3q1h(z#id38c&83thngr4*4cc@ylq@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False #True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cfac.uiic.in']
 
-FORCE_SCRIPT_NAME = ""  # "/estates"
+FORCE_SCRIPT_NAME = "/estates"  # "/estates"
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware"
 ]
 
 INTERNAL_IPS = ["127.0.0.1"]
@@ -137,7 +138,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "static_root"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+#MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = Path("/var/www/media/")
 BOOTSTRAP5 = {
     "css_url": {"url": f"{FORCE_SCRIPT_NAME}/static/bootstrap/css/bootstrap.min.css"},
     "javascript_url": {

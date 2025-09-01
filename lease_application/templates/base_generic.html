@@ -40,7 +40,10 @@
                             Lease applications
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'lease_list' %}">Lease application list</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lease_list' %}">All lease application list</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'lease_list_active' %}">Active lease application
+                                    list</a></li>
                             <li><a class="dropdown-item" href="{% url 'lease_list_expired' %}">Recently expired
                                     leases</a></li>
                             <li><a class="dropdown-item" href="{% url 'lease_add' %}">Add new lease application</a></li>

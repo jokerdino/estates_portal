@@ -22,6 +22,28 @@
             <dt class="col-sm-3">Remarks</dt>
             <dd class="col-sm-9">{{ deposit.remarks }}</dd>
             {% endif %}
+        </dl>
+    </fieldset>
+    {% if deposit.employee_deposit_share %}
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Employee deposit share</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Employee Deposit Share</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share }}</dd>
+            <dt class="col-sm-3">Amount</dt>
+            <dd class="col-sm-9">₹{{ deposit.employee_deposit_share_amount }}</dd>
+            <dt class="col-sm-3">UTR Number</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share_utr_number }}</dd>
+            <dt class="col-sm-3">Date of Payment</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share_date }}</dd>
+            <dt class="col-sm-3">Related documents</dt>
+            <dd class="col-sm-9">
+                {% if deposit.employee_deposit_share_documents %}
+                <a href="{{ deposit.employee_deposit_share_documents.url }}">Download</a>
+                {% else %}
+                Not uploaded
+                {% endif %}
+            </dd>{% endif %}
 
         </dl>
     </fieldset>

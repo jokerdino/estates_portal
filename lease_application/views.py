@@ -421,6 +421,20 @@ class ApplicationListView(LoginRequiredMixin, SingleTableView):
             .order_by("lease_start_date")
         )
 
+class ApplicationActiveListView(SingleTableView):
+    model = LeaseApplication
+    table_class = LeaseApplicationTable
+    template_name = "lease_application/lease_application_list.html"
+
+    def get_queryset(self):
+        today = timezone.now().date()
+        return (
+            LeaseApplication.objects.select_related(
+                "primary_employee", "joint_employee", "landlord"
+            )
+            .filter(lease_end_date__gte=today)
+            .order_by("lease_end_date")
+        )
 
 class ApplicationExpiredListView(SingleTableView):
     model = LeaseApplication

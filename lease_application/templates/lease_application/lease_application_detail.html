@@ -23,6 +23,18 @@
             <dt class="col-sm-3">Rent</dt>
             <dd class="col-sm-9">{{ lease.rent }}</dd>
 
+            <dt class="col-sm-3">Carpet area</dt>
+            <dd class="col-sm-9">{{ lease.carpet_area }}</dd>
+
+            <dt class="col-sm-3">Date of occupation</dt>
+            <dd class="col-sm-9">{{ lease.date_of_occupation|date:"d/m/Y" }}</dd>
+
+            <dt class="col-sm-3">Date of termination</dt>
+            <dd class="col-sm-9">{{ lease.date_of_termination|date:"d/m/Y" }}</dd>
+
+            <dt class="col-sm-3">Address of property</dt>
+            <dd class="col-sm-9">{{ lease.address_of_property }}</dd>
+
             <dt class="col-sm-3">Status</dt>
             <dd class="col-sm-9">{{ lease.status }}</dd>
 
@@ -42,6 +54,9 @@
 
             <dt class="col-sm-3">Employee Number</dt>
             <dd class="col-sm-9">{{ lease.primary_employee.employee_number }}</dd>
+
+            <dt class="col-sm-3">Mobile number</dt>
+            <dd class="col-sm-9">{{ employee.employee_mobile_number }}</dd>
 
             <dt class="col-sm-3">Designation</dt>
             <dd class="col-sm-9">{{ lease.primary_employee.get_employee_designation_display }}</dd>
@@ -69,6 +84,8 @@
 
             <dt class="col-sm-3">Employee Number</dt>
             <dd class="col-sm-9">{{ lease.joint_employee.employee_number }}</dd>
+            <dt class="col-sm-3">Mobile number</dt>
+            <dd class="col-sm-9">{{ employee.employee_mobile_number }}</dd>
 
             <dt class="col-sm-3">Designation</dt>
             <dd class="col-sm-9">{{ lease.joint_employee.get_employee_designation_display }}</dd>
@@ -97,6 +114,17 @@
 
             <dt class="col-sm-3">Code</dt>
             <dd class="col-sm-9">{{ lease.landlord.landlord_code }}</dd>
+            <dt class="col-sm-3">Address</dt>
+            <dd class="col-sm-9">{{ landlord.landlord_residential_address }}</dd>
+
+            <dt class="col-sm-3">Mobile number</dt>
+            <dd class="col-sm-9">{{ landlord.landlord_mobile_number }}</dd>
+
+            <dt class="col-sm-3">Legal heir</dt>
+            <dd class="col-sm-9">{{ landlord.legal_heir|yesno:"Yes,No" }}</dd>
+
+            <dt class="col-sm-3">General Power of attorney</dt>
+            <dd class="col-sm-9">{{ landlord.general_poa|yesno:"Yes,No" }}</dd>
 
             <dt class="col-sm-3">PAN Number</dt>
             <dd class="col-sm-9">{{ lease.landlord.pan_number }}</dd>
@@ -141,11 +169,34 @@
             <dd class="col-sm-9">{{ deposit.utr_number }}</dd>
 
             <dt class="col-sm-3">Date of Payment</dt>
-            <dd class="col-sm-9">{{ deposit.date_of_payment }}</dd>
+            <dd class="col-sm-9">{{ deposit.date_of_payment|date:"d/m/Y" }}</dd>
             {% if deposit.remarks %}
             <dt class="col-sm-3">Remarks</dt>
             <dd class="col-sm-9">{{ deposit.remarks }}</dd>
             {% endif %}
+
+        </dl>
+    </fieldset>
+    {% if deposit.employee_deposit_share %}
+    <fieldset class="border p-3 mb-4">
+        <legend class="float-none w-auto px-2">Employee deposit share</legend>
+        <dl class="row">
+            <dt class="col-sm-3">Employee Deposit Share</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share }}</dd>
+            <dt class="col-sm-3">Amount</dt>
+            <dd class="col-sm-9">₹{{ deposit.employee_deposit_share_amount }}</dd>
+            <dt class="col-sm-3">UTR Number</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share_utr_number }}</dd>
+            <dt class="col-sm-3">Date of Payment</dt>
+            <dd class="col-sm-9">{{ deposit.employee_deposit_share_date|date:"d/m/Y" }}</dd>
+            <dt class="col-sm-3">Related documents</dt>
+            <dd class="col-sm-9">
+                {% if deposit.employee_deposit_share_documents %}
+                <a href="{{ deposit.employee_deposit_share_documents.url }}">Download</a>
+                {% else %}
+                Not uploaded
+                {% endif %}
+            </dd>{% endif %}
 
         </dl>
     </fieldset>
@@ -164,7 +215,7 @@
 
             {% if deposit.date_of_refund %}
             <dt class="col-sm-3">Date of Refund</dt>
-            <dd class="col-sm-9">{{ deposit.date_of_refund }}</dd>
+            <dd class="col-sm-9">{{ deposit.date_of_refund|date:"d/m/Y" }}</dd>
             {% endif %}
 
             {% if deposit.refund_payment_document %}

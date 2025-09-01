@@ -11,7 +11,9 @@ class DepositForm(forms.ModelForm):
     date_of_payment = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date"}), required=True
     )
-
+    employee_deposit_share_date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}), required=False
+    )
     class Meta:
         model = Deposit
         fields = [
@@ -20,6 +22,11 @@ class DepositForm(forms.ModelForm):
             # "current_status",
             "utr_number",
             "date_of_payment",
+            "employee_deposit_share",
+            "employee_deposit_share_amount",
+            "employee_deposit_share_date",
+            "employee_deposit_share_utr_number",
+            "employee_deposit_share_documents",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -37,6 +44,9 @@ class DepositRefundForm(forms.ModelForm):
     date_of_refund = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date"}), required=False
     )
+    employee_deposit_share_date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}), required=False
+    )
 
     class Meta:
         model = Deposit
@@ -46,6 +56,11 @@ class DepositRefundForm(forms.ModelForm):
             # "current_status",
             "utr_number",
             "date_of_payment",
+            "employee_deposit_share",
+            "employee_deposit_share_amount",
+            "employee_deposit_share_date",
+            "employee_deposit_share_utr_number",
+            "employee_deposit_share_documents",
             "current_status",
             "mode_of_refund",
             "refund_instrument_number",
@@ -90,7 +105,14 @@ class LeaseApplicationForm(forms.ModelForm):
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
         required=True,
     )
-
+    date_of_occupation = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
+        required=False,
+    )
+    date_of_termination = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
+        required=False,
+    )
     class Meta:
         model = LeaseApplication
 
@@ -99,6 +121,10 @@ class LeaseApplicationForm(forms.ModelForm):
             "type_of_lease",
             "lease_start_date",
             "lease_end_date",
+            "date_of_occupation",
+            "date_of_termination",
+            "carpet_area",
+            "address_of_property",
             "lease_deposit",
             "rent",
             "remarks",
@@ -124,6 +150,7 @@ class EmployeeForm(forms.ModelForm):
         fields = [
             "employee_number",
             "employee_name",
+            "employee_mobile_number",
             "employee_designation",
             "office_code",
             "department",
@@ -138,12 +165,17 @@ class LandLordForm(forms.ModelForm):
         fields = [
             "landlord_code",
             "landlord_name",
+            "landlord_mobile_number",
+            "landlord_residential_address",
             "pan_number",
+            "legal_heir",
+            "general_poa",
             "bank_account_number",
             "bank_ifsc_code",
             "bank_name",
             "bank_branch_name",
             "bank_account_details",
+            "remarks",
         ]
 
     def __init__(self, *args, **kwargs):

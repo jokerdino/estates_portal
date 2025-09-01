@@ -35,6 +35,7 @@ from .views import (
     rent_payment_bulk_mark_paid,
     RentPaymentDetailView,
     ApplicationExpiredListView,
+    ApplicationActiveListView,
     get_landlord_by_code,
 )
 
@@ -44,6 +45,11 @@ urlpatterns = [
         "applications/expired",
         ApplicationExpiredListView.as_view(),
         name="lease_list_expired",
+    ),
+     path(
+        "applications/active",
+        ApplicationActiveListView.as_view(),
+        name="lease_list_active",
     ),
     path("applications/add/", create_lease_and_landlord, name="lease_add"),
     path(

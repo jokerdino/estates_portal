@@ -14,6 +14,7 @@ class DepositForm(forms.ModelForm):
     employee_deposit_share_date = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date"}), required=False
     )
+
     class Meta:
         model = Deposit
         fields = [
@@ -105,14 +106,12 @@ class LeaseApplicationForm(forms.ModelForm):
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
         required=True,
     )
-    date_of_occupation = forms.DateField(
-        widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
-        required=False,
-    )
+
     date_of_termination = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
         required=False,
     )
+
     class Meta:
         model = LeaseApplication
 
@@ -121,7 +120,6 @@ class LeaseApplicationForm(forms.ModelForm):
             "type_of_lease",
             "lease_start_date",
             "lease_end_date",
-            "date_of_occupation",
             "date_of_termination",
             "carpet_area",
             "address_of_property",
@@ -156,7 +154,21 @@ class EmployeeForm(forms.ModelForm):
             "department",
             "office_name",
             "housing_loan",
+            "housing_loan_location",
         ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        housing_loan = cleaned_data.get("housing_loan")
+        housing_loan_location = cleaned_data.get("housing_loan_location")
+
+        if housing_loan and not housing_loan_location:
+            self.add_error(
+                "housing_loan_location",
+                "Housing loan location is required if housing loan is availed.",
+            )
+
+        return cleaned_data
 
 
 class LandLordForm(forms.ModelForm):
@@ -166,6 +178,7 @@ class LandLordForm(forms.ModelForm):
             "landlord_code",
             "landlord_name",
             "landlord_mobile_number",
+            "landlord_email_address",
             "landlord_residential_address",
             "pan_number",
             "legal_heir",

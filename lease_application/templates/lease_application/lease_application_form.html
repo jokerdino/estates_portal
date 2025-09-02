@@ -80,10 +80,12 @@
                     // Fill other fields
                     document.getElementById(`id_${prefix}-employee_name`).value = data.employee_name || "";
                     document.getElementById(`id_${prefix}-employee_designation`).value = data.employee_designation || "";
+                    document.getElementById(`id_${prefix}-employee_mobile_number`).value = data.employee_mobile_number || "";
                     document.getElementById(`id_${prefix}-office_code`).value = data.office_code || "";
                     document.getElementById(`id_${prefix}-department`).value = data.department || "";
                     document.getElementById(`id_${prefix}-office_name`).value = data.office_name || "";
                     document.getElementById(`id_${prefix}-housing_loan`).value = data.housing_loan || "";
+                    document.getElementById(`id_${prefix}-housing_loan_location`).value = data.housing_loan_location || "";
                 })
                 .catch(err => {
                     console.log("Employee not found, new entry.");

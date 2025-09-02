@@ -4,6 +4,7 @@
 {% block content %}
 
 <div class="container">
+
     <h1 class="title">
         {% if object %}
         Edit employee - {{ object.employee_name }}
@@ -13,7 +14,7 @@
     </h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-
+        {% bootstrap_form_errors form layout='inline' %}
         {% bootstrap_form form layout="horizontal" %}
 
         <div class="text-center">

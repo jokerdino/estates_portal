@@ -27,6 +27,9 @@
             <dd class="col-sm-9">{{ employee.office_code }}</dd>
             <dt class="col-sm-3">Housing Loan Availed?</dt>
             <dd class="col-sm-9">{{ employee.housing_loan|yesno:"Yes,No" }}</dd>
+
+            <dt class="col-sm-3">Housing loan location</dt>
+            <dd class="col-sm-9">{{ employee.housing_loan_location }}</dd>
         </dl>
     </fieldset>
 

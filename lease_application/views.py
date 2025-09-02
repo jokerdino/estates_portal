@@ -156,7 +156,9 @@ def create_lease_and_landlord(request):
         joint_employee_form = EmployeeForm(
             request.POST, prefix="joint", instance=joint_employee_instance
         )
-        landlord_form = LandLordForm(request.POST, request.FILES, instance=landlord_instance)
+        landlord_form = LandLordForm(
+            request.POST, request.FILES, instance=landlord_instance
+        )
         if (
             lease_form.is_valid()
             and landlord_form.is_valid()
@@ -421,6 +423,7 @@ class ApplicationListView(LoginRequiredMixin, SingleTableView):
             .order_by("lease_start_date")
         )
 
+
 class ApplicationActiveListView(SingleTableView):
     model = LeaseApplication
     table_class = LeaseApplicationTable
@@ -435,6 +438,7 @@ class ApplicationActiveListView(SingleTableView):
             .filter(lease_end_date__gte=today)
             .order_by("lease_end_date")
         )
+
 
 class ApplicationExpiredListView(SingleTableView):
     model = LeaseApplication
@@ -739,11 +743,13 @@ def get_employee_by_number(request):
         fields=[
             "employee_number",
             "employee_name",
+            "employee_mobile_number",
             "employee_designation",
             "office_code",
             "department",
             "office_name",
             "housing_loan",
+            "housing_loan_location",
         ],
     )
     return JsonResponse(data)

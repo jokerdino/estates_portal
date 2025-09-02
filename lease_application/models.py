@@ -37,6 +37,7 @@ class Employee(models.Model):
         default=False,
         null=True,
     )
+    housing_loan_location = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -53,9 +54,9 @@ class Employee(models.Model):
         null=True,
         blank=True,
     )
+
     def get_absolute_url(self):
         return reverse("employee_detail", kwargs={"pk": self.pk})
-
 
     def __str__(self):
         return f"{self.employee_name} - {self.employee_number}"
@@ -66,7 +67,8 @@ class LandLord(models.Model):
     landlord_name = models.CharField(max_length=100)
     landlord_code = models.CharField(unique=True, max_length=100, blank=True, null=True)
     landlord_mobile_number = models.CharField(max_length=100, null=True, blank=True)
-    
+    landlord_email_address = models.CharField(max_length=100, null=True, blank=True)
+
     landlord_residential_address = models.TextField(null=True, blank=True)
     bank_name = models.CharField(max_length=100, null=True, blank=True)
     bank_branch_name = models.CharField(max_length=100, null=True, blank=True)
@@ -78,8 +80,15 @@ class LandLord(models.Model):
         upload_to="bank_account_details", null=True, blank=True
     )
 
-    legal_heir = models.BooleanField("Whether legal heir", default=False,null=True, blank=True)
-    general_poa = models.BooleanField("Whether General power of attorney is available", default=False,null=True, blank=True)
+    legal_heir = models.BooleanField(
+        "Whether legal heir", default=False, null=True, blank=True
+    )
+    general_poa = models.BooleanField(
+        "Whether General power of attorney is available",
+        default=False,
+        null=True,
+        blank=True,
+    )
 
     remarks = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -133,11 +142,10 @@ class LeaseApplication(models.Model):
     lease_start_date = models.DateField()
     lease_end_date = models.DateField()
 
-    date_of_occupation = models.DateField(null=True)
     date_of_termination = models.DateField(null=True)
     lease_deposit = models.IntegerField()
     rent = models.IntegerField()
-    carpet_area = models.IntegerField(default=0,null=True,blank=True)
+    carpet_area = models.IntegerField(default=0, null=True, blank=True)
     address_of_property = models.TextField(max_length=1000, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
 
@@ -183,8 +191,10 @@ class Deposit(models.Model):
     employee_deposit_share = models.BooleanField(default=False, null=True, blank=True)
     employee_deposit_share_amount = models.IntegerField(null=True, blank=True)
     employee_deposit_share_date = models.DateField(null=True, blank=True)
-    employee_deposit_share_utr_number = models.CharField(max_length=100, null=True, blank=True)
-    employee_deposit_share_documents = models.FileField(null=True, blank=True) 
+    employee_deposit_share_utr_number = models.CharField(
+        max_length=100, null=True, blank=True
+    )
+    employee_deposit_share_documents = models.FileField(null=True, blank=True)
 
     utr_number = models.CharField(max_length=100)
     date_of_payment = models.DateField()

@@ -26,9 +26,6 @@
             <dt class="col-sm-3">Carpet area</dt>
             <dd class="col-sm-9">{{ lease.carpet_area }}</dd>
 
-            <dt class="col-sm-3">Date of occupation</dt>
-            <dd class="col-sm-9">{{ lease.date_of_occupation|date:"d/m/Y" }}</dd>
-
             <dt class="col-sm-3">Date of termination</dt>
             <dd class="col-sm-9">{{ lease.date_of_termination|date:"d/m/Y" }}</dd>
 
@@ -56,7 +53,7 @@
             <dd class="col-sm-9">{{ lease.primary_employee.employee_number }}</dd>
 
             <dt class="col-sm-3">Mobile number</dt>
-            <dd class="col-sm-9">{{ employee.employee_mobile_number }}</dd>
+            <dd class="col-sm-9">{{ lease.primary_employee.employee_mobile_number }}</dd>
 
             <dt class="col-sm-3">Designation</dt>
             <dd class="col-sm-9">{{ lease.primary_employee.get_employee_designation_display }}</dd>
@@ -71,6 +68,9 @@
             <dd class="col-sm-9">{{ lease.primary_employee.office_code }}</dd>
             <dt class="col-sm-3">Housing Loan Availed?</dt>
             <dd class="col-sm-9">{{ lease.primary_employee.housing_loan|yesno:"Yes,No" }}</dd>
+
+            <dt class="col-sm-3">Housing loan location</dt>
+            <dd class="col-sm-9">{{ lease.primary_employee.housing_loan_location }}</dd>
         </dl>
     </fieldset>
 
@@ -85,7 +85,7 @@
             <dt class="col-sm-3">Employee Number</dt>
             <dd class="col-sm-9">{{ lease.joint_employee.employee_number }}</dd>
             <dt class="col-sm-3">Mobile number</dt>
-            <dd class="col-sm-9">{{ employee.employee_mobile_number }}</dd>
+            <dd class="col-sm-9">{{ lease.joint_employee.employee_mobile_number }}</dd>
 
             <dt class="col-sm-3">Designation</dt>
             <dd class="col-sm-9">{{ lease.joint_employee.get_employee_designation_display }}</dd>
@@ -100,6 +100,9 @@
             <dd class="col-sm-9">{{ lease.joint_employee.office_code }}</dd>
             <dt class="col-sm-3">Housing Loan Availed?</dt>
             <dd class="col-sm-9">{{ lease.joint_employee.housing_loan|yesno:"Yes,No" }}</dd>
+
+            <dt class="col-sm-3">Housing loan location</dt>
+            <dd class="col-sm-9">{{ lease.joint_employee.housing_loan_location }}</dd>
         </dl>
     </fieldset>
     {% endif %}
@@ -115,16 +118,18 @@
             <dt class="col-sm-3">Code</dt>
             <dd class="col-sm-9">{{ lease.landlord.landlord_code }}</dd>
             <dt class="col-sm-3">Address</dt>
-            <dd class="col-sm-9">{{ landlord.landlord_residential_address }}</dd>
+            <dd class="col-sm-9">{{ lease.landlord.landlord_residential_address }}</dd>
 
             <dt class="col-sm-3">Mobile number</dt>
-            <dd class="col-sm-9">{{ landlord.landlord_mobile_number }}</dd>
+            <dd class="col-sm-9">{{ lease.landlord.landlord_mobile_number }}</dd>
+            <dt class="col-sm-3">Email address</dt>
+            <dd class="col-sm-9">{{ lease.landlord.landlord_email_address }}</dd>
 
             <dt class="col-sm-3">Legal heir</dt>
-            <dd class="col-sm-9">{{ landlord.legal_heir|yesno:"Yes,No" }}</dd>
+            <dd class="col-sm-9">{{ lease.landlord.legal_heir|yesno:"Yes,No" }}</dd>
 
             <dt class="col-sm-3">General Power of attorney</dt>
-            <dd class="col-sm-9">{{ landlord.general_poa|yesno:"Yes,No" }}</dd>
+            <dd class="col-sm-9">{{ lease.landlord.general_poa|yesno:"Yes,No" }}</dd>
 
             <dt class="col-sm-3">PAN Number</dt>
             <dd class="col-sm-9">{{ lease.landlord.pan_number }}</dd>
